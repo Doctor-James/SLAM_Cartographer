@@ -1,0 +1,21 @@
+<launch>
+  <param name="/use_sim_time" value="true" />
+  <!-- 启动关键的建图节点，这是我们主要要更改的地方，更改下面的configuration_directory和configuration_basename的路径 -->
+  <node name="cartographer_node" pkg="cartographer_ros"
+      type="cartographer_node" 
+      args="-configuration_directory 
+      $(find cartographer_ros)/configuration_files
+      -configuration_basename revo_lds.lua"
+      output="screen">
+		<!-- 更改horizontal_laser_2d为我们的雷达话题 -->
+    <remap from="scan" to="horizontal_laser_2d" />
+		<!-- 更改odom为里程计话题 -->
+    <remap from="odom" to="odom" />
+  </node>
+  <!-- 一般不更改，有个建图分辨率参数 -->
+  <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros"
+      type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
+  <!-- 下面这两个一般直接注释掉，我们自己需要再启动就可以了 -->
+  <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find cartographer_ros)/configuration_files/demo_2d.rviz" />
+  <node name="playbag" pkg="rosbag" type="play" args="--clock $(arg bag_filename)" />
+</launch>

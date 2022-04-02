@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/test_ws/install
+
+Name: ralidarHC
+Description: Description of ralidarHC
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

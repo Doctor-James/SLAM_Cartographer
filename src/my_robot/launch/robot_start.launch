@@ -1,0 +1,14 @@
+<launch>
+
+    <!-- 启动robot -->
+    <node pkg="my_robot" type="robot_start" name="robot_start" output="screen" />
+
+
+
+    <!-- 运行激光雷达驱动 -->
+    <!-- <include file="$(find my_robot)/launch/rplidar.launch" /> -->
+    <include file="$(find my_robot)/launch/hcrplidar.launch" />
+
+    
+
+</launch>

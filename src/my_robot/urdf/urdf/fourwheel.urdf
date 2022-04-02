@@ -1,0 +1,168 @@
+<?xml version="1.0"?> 
+<robot name="smartcar">
+    <!-- 设置一个原点(机器人中心点的投影) -->
+    <!-- 添加一个尺寸极小的link,
+    再去关联初始link与base_link，
+    关节的高度刚好和base_link下沉的高度一致（半个底盘高度） -->
+    <link name="base_footprint">
+        <visual>
+            <geometry>
+                <!-- <sphere radius="0.001" /> -->
+                <box size="0.001 0.001 0.001"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.25 .16 .05"/>
+            </geometry>
+
+            <origin rpy="0 0 1.57075" xyz="0 0 0"/>
+
+            <material name="blue">
+                <color rgba="0 .5 .8 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- 底盘与原点连接的关节 -->
+    <joint name="base_link2base_footprint" type="fixed">
+        <parent link="base_footprint" />
+        <child link="base_link" />
+        <origin xyz="0 0 0.05" />
+    </joint>
+
+    <link name="right_front_wheel">  
+        <visual>  
+            <geometry>  
+                <cylinder length=".02" radius="0.025"/>  
+            </geometry>  
+
+            <material name="black">  
+                <color rgba="0 0 0 1"/>  
+            </material>  
+        </visual>  
+    </link>  
+    
+    <joint name="right_front_wheel2base_link" type="continuous">  
+        <axis xyz="0 0 1"/>  
+        <parent link="base_link"/>  
+        <child link="right_front_wheel"/>  
+        <origin rpy="0 1.57075 0" xyz="0.08 0.1 -0.03"/>  
+        <limit effort="100" velocity="100"/>  
+        <joint_properties damping="0.0" friction="0.0"/>  
+    </joint>  
+    
+    <link name="right_back_wheel">  
+    <visual>  
+        <geometry>  
+        <cylinder length=".02" radius="0.025"/>  
+        </geometry>  
+        <material name="black">  
+        <color rgba="0 0 0 1"/>  
+        </material>  
+    </visual>  
+    </link>  
+    
+    <joint name="right_back_wheel2base_link" type="continuous">  
+        <axis xyz="0 0 1"/>  
+        <parent link="base_link"/>  
+        <child link="right_back_wheel"/>  
+        <origin rpy="0 1.57075 0" xyz="0.08 -0.1 -0.03"/>  
+        <limit effort="100" velocity="100"/>  
+        <joint_properties damping="0.0" friction="0.0"/>  
+    </joint>  
+    
+    <link name="left_front_wheel">  
+        <visual>  
+            <geometry>  
+                <cylinder length=".02" radius="0.025"/>  
+            </geometry>  
+            <material name="black">  
+                <color rgba="0 0 0 1"/>  
+            </material>  
+        </visual>  
+    </link>  
+    
+    <joint name="left_front_wheel2base_link" type="continuous">  
+        <axis xyz="0 0 1"/>  
+        <parent link="base_link"/>  
+        <child link="left_front_wheel"/>  
+        <origin rpy="0 1.57075 0" xyz="-0.08 0.1 -0.03"/>  
+        <limit effort="100" velocity="100"/>  
+        <joint_properties damping="0.0" friction="0.0"/>  
+    </joint>  
+    
+    <link name="left_back_wheel">  
+        <visual>  
+            <geometry>  
+                <cylinder length=".02" radius="0.025"/>  
+            </geometry>  
+            <material name="black">  
+                <color rgba="0 0 0 1"/>  
+            </material>  
+        </visual>  
+    </link>  
+    
+    <joint name="left_back_wheel2base_link" type="continuous">  
+        <axis xyz="0 0 1"/>  
+        <parent link="base_link"/>  
+        <child link="left_back_wheel"/>  
+        <origin rpy="0 1.57075 0" xyz="-0.08 -0.1 -0.03"/>  
+        <limit effort="100" velocity="100"/>  
+        <joint_properties damping="0.0" friction="0.0"/>  
+    </joint>  
+    
+    <link name="head">  
+        <visual>  
+            <geometry>  
+                <box size=".02 .03 .03"/>  
+            </geometry>  
+            <material name="white">
+                <color rgba="1 1 1 1"/>  
+            </material>  
+        </visual>  
+    </link>  
+    
+    <joint name="head2base_link" type="fixed">  
+        <parent link="base_link"/>  
+        <child link="head"/>  
+        <origin xyz="0 0.08 0.025"/>  
+    </joint>  
+    <!-- 雷达支架 -->
+    <link name="support">
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.15" />
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <material name="red">
+                <color rgba="0.8 0.2 0.0 0.8" />
+            </material>
+        </visual>
+    </link>
+
+    <joint name="support2base_link" type="fixed">
+        <parent link="base_link" />
+        <child link="support" />
+        <origin xyz="0.0 0.0 0.1" />
+    </joint>
+
+    <!-- 雷达关节以及link -->
+    <link name="laser">
+        <visual>
+            <geometry>
+                <cylinder radius="0.03" length="0.05" />
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <material name="black" />
+        </visual>
+    </link>
+
+    <joint name="laser2support" type="fixed">
+        <parent link="support" />
+        <child link="laser" />
+        <origin xyz="0.0 0.0 0.1" />
+    </joint>
+</robot>

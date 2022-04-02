@@ -1,0 +1,2 @@
+gazebo_laser:my_robot:ralidarHC:rplidar_ros
+-DCATKIN_DEVEL_PREFIX=/home/ubuntu/test_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/test_ws/install -G Unix Makefiles

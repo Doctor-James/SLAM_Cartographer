@@ -1,0 +1,6 @@
+<launch>
+    <!-- config -->
+    <arg name="map" default="map.yaml" />
+    <!-- load-->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find my_robot)/map/$(arg map)"/>
+</launch>

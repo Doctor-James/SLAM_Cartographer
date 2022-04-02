@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/test_ws/devel
+
+Name: gazebo_laser
+Description: Description of gazebo_laser
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
